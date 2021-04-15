@@ -16,10 +16,7 @@ Mariana Shimabukuro
 **Project Information**
 =====================
 
-The purpose of this project was to create file sharing software. The file sharing system will expose a directory of files on 
-the server to clients directly. The file sharing clients will connect to a central server, which will respond to a single 
-client command, and then disconnect. Each time the client needs to issue another command, it will reconnect before 
-sending the command.
+The purpose of this project was to create a multithreaded chat server and client with a JavaFx UI on the client end. Client Starts with asking for a username, then asks for a password which is set in ChatServerThread.java. Once account is logged into server you can send messages and refresh the message list. Sending a message sends a message and refreshes the message board to the latest messages, and the refresh button updates message board to the latest messages.
 
 
 **Instructions**
@@ -27,8 +24,13 @@ sending the command.
 
 1. Clone The Repository [here](https://github.com/Abdullahsrwr/groupProject_CSCI2020U).
 2. Open the clone folder into a JavaFX applicable IDE.
-3. Select and run the src code file named "Server".
-4. Select and run the src code files named "client"
+-----Method #1-------
+3. If using IntelliJ IDE, project is set up with three run configurations: "Server", "Client", and "Client2". Running These configurations in order will run the server and open up two chat clients.
+----Method #2--------
+4. Compile ChatServer.java, ChatServerClient.java, and ChatServerThread.java
+5. Run ChatServer
+6. Run as many instances of ChatServerClient as needed.
+---------------------
 
 
 **Resources**
@@ -51,5 +53,7 @@ https://stackoverflow.com/questions/17799160/javafx-textarea-and-autoscroll
 http://www.learningaboutelectronics.com/Articles/How-to-retrieve-data-from-a-text-field-in-JavaFX.php
 
 https://codereview.stackexchange.com/questions/52197/console-component-in-javafx
+
+CSCI2020U Modules
 
 
