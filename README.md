@@ -16,7 +16,7 @@ Mariana Shimabukuro
 **Project Information**
 =====================
 
-The purpose of this project was to create a multithreaded chat server and client with a JavaFx UI on the client end. Client Starts by asking for a username, then asks for a password that is set in ChatServerThread.java. Once account is logged into server you can send messages and refresh the message list. Sending a message sends a message and refreshes the message board to the latest messages, and the refresh button updates message board to the latest messages.
+The purpose of this project was to create a  multi-client socket program with a JavaFx UI on the client end. Client Starts by asking for a username, then asks for a password that is set in ChatServerThread.java. Once account is logged into server you can send messages and refresh the message list. Sending a message sends a message and refreshes the message board to the latest messages, and the refresh button updates message board to the latest messages.
 
 
 **Instructions**
