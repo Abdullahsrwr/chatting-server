@@ -37,8 +37,6 @@ import java.util.*;
 import java.awt.event.*;
 import java.awt.*;
 
-
-
 public class ChatServerClient extends Application {
 	private Scene mainScene;
 	private Canvas canvas;
@@ -47,17 +45,17 @@ public class ChatServerClient extends Application {
 	private PrintWriter networkOut = null;
 	private BufferedReader networkIn = null;
 
-	//we can read this from the user too
-	public  static String SERVER_ADDRESS = "localhost";
-	public  static int    SERVER_PORT = 16789;
+	// we can read this from the user too
+	public static String SERVER_ADDRESS = "localhost";
+	public static int SERVER_PORT = 16789;
 
 	public ChatServerClient() {
 		try {
 			socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
 		} catch (UnknownHostException e) {
-			System.err.println("Unknown host: "+SERVER_ADDRESS);
+			System.err.println("Unknown host: " + SERVER_ADDRESS);
 		} catch (IOException e) {
-			System.err.println("IOEXception while connecting to server: "+SERVER_ADDRESS);
+			System.err.println("IOEXception while connecting to server: " + SERVER_ADDRESS);
 		}
 		if (socket == null) {
 			System.err.println("socket is null");
@@ -70,6 +68,10 @@ public class ChatServerClient extends Application {
 		}
 	}
 
+	/**
+	 * @param primaryStage
+	 * @throws Exception
+	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		ChatServerClient client = new ChatServerClient();
@@ -78,10 +80,8 @@ public class ChatServerClient extends Application {
 		int errorCode = 0;
 
 		try {
-			message = networkIn.readLine(); //Welcome to chat
-			System.out.println(message);
-			message = networkIn.readLine(); //200 Message serves is ready
-			System.out.println(message);
+			message = networkIn.readLine(); // Welcome to chat
+			message = networkIn.readLine(); // 200 Message serves is ready
 		} catch (IOException e) {
 			System.err.println("Error reading initial greeting from socket.");
 		}
@@ -93,10 +93,12 @@ public class ChatServerClient extends Application {
 		grid.setVgap(10);
 
 		// Creating the menu buttons
-		Button btApp1 = new Button("Type Username and hit this button");
+		Button btApp1 = new Button("Type Username and Click");
 		btApp1.setPrefWidth(200);
 		TextField text = new TextField();
 		text.setPrefWidth(200);
+		btApp1.setTextFill(Color.BLUEVIOLET);
+		grid.setStyle("-fx-background-color:#808080;");
 
 		// Add the menu buttons to the grid
 		grid.add(btApp1, 0, 1);
@@ -114,7 +116,7 @@ public class ChatServerClient extends Application {
 				if (input.equalsIgnoreCase("quit")) {
 					System.exit(0);
 				}
-				networkOut.println("UID "+input);
+				networkOut.println("UID " + input);
 				try {
 					message = networkIn.readLine();
 				} catch (IOException e) {
@@ -127,10 +129,12 @@ public class ChatServerClient extends Application {
 				grid2.setVgap(10);
 
 				// Creating the menu buttons
-				Button passButton = new Button("Type Password and hit this button");
+				Button passButton = new Button("Type Password and Click");
 				passButton.setPrefWidth(200);
 				TextField passText = new TextField();
 				passText.setPrefWidth(200);
+				passButton.setTextFill(Color.BLUEVIOLET);
+				grid2.setStyle("-fx-background-color:#808080;");
 
 				// Add the menu buttons to the grid
 				grid2.add(passButton, 0, 1);
@@ -148,14 +152,13 @@ public class ChatServerClient extends Application {
 						String input;
 						String message;
 						input = txtField;
-						networkOut.println("PWD "+input);
+						networkOut.println("PWD " + input);
 						try {
 							message = networkIn.readLine();
 						} catch (IOException e) {
 							System.err.println("Error reading response to UID.");
 						}
-						if(txtField.equals("password"))
-						{
+						if (txtField.equals("password")) {
 							GridPane grid2 = new GridPane();
 							grid2.setAlignment(Pos.CENTER);
 							grid2.setHgap(10);
@@ -165,15 +168,18 @@ public class ChatServerClient extends Application {
 							Button sendButton = new Button("Enter Message and Click to Send");
 							TextField sendText = new TextField();
 							Button refresh = new Button("Click to Refresh Messages");
-							TextArea msgArea = new TextArea("hello");
-							msgArea.setMinSize(100,100);
+							TextArea msgArea = new TextArea("");
+							msgArea.setMinSize(100, 300);
+
+							sendButton.setTextFill(Color.BLUEVIOLET);
+							refresh.setTextFill(Color.BLUEVIOLET);
+							grid2.setStyle("-fx-background-color:#808080;");
 
 							// Add the menu buttons to the grid
-							grid2.add(msgArea,0,0);
-							grid2.add(sendButton, 0, 40);
-							grid2.add(sendText, 0, 41);
-							grid2.add(refresh,0,42);
-
+							grid2.add(msgArea, 0, 1);
+							grid2.add(sendButton, 0, 10);
+							grid2.add(sendText, 0, 11);
+							grid2.add(refresh, 0, 12);
 
 							Scene nextScene2 = new Scene(grid2, 600, 600);
 							primaryStage.hide();
@@ -184,14 +190,14 @@ public class ChatServerClient extends Application {
 								@Override
 								public void handle(ActionEvent actionEvent) {
 									String msgField = sendText.getText();
-									System.out.println(msgField);
-									String text="";
+									String text = "";
 									String message = null;
 									String input = null;
 									try {
 										input = msgField;
-									}finally{}
-									networkOut.println("ADDMSG "+input);
+									} finally {
+									}
+									networkOut.println("ADDMSG " + input);
 									// read and ignore response
 									try {
 										message = networkIn.readLine();
@@ -209,21 +215,21 @@ public class ChatServerClient extends Application {
 									} catch (IOException e) {
 										System.err.println("Error reading from socket.");
 									}
-									String strID = message.substring(message.indexOf(':')+1);
+									String strID = message.substring(message.indexOf(':') + 1);
 									id = (new Integer(strID.trim())).intValue();
 									for (int i = id; i >= 0; i--) {
-										networkOut.println("GETMSG "+i);
+										networkOut.println("GETMSG " + i);
 										try {
 											message = networkIn.readLine();
 										} catch (IOException e) {
 											System.err.println("Error reading from socket.");
 										}
-										int index = message.indexOf(':')+1;
+										int index = message.indexOf(':') + 1;
 										String msg = message.substring(index);
-										text = text + "    "+msg+"\n";
+										text = text + "    " + msg + "\n";
 									}
 									msgArea.setText(text);
-									//send message to server and refreshlist
+									// send message to server and refreshlist
 									;
 								}
 							});
@@ -231,7 +237,7 @@ public class ChatServerClient extends Application {
 								@Override
 								public void handle(ActionEvent actionEvent) {
 									String message = null;
-									String text="";
+									String text = "";
 
 									networkOut.println("LASTMSG");
 
@@ -241,25 +247,24 @@ public class ChatServerClient extends Application {
 									} catch (IOException e) {
 										System.err.println("Error reading from socket.");
 									}
-									String strID = message.substring(message.indexOf(':')+1);
+									String strID = message.substring(message.indexOf(':') + 1);
 									id = (new Integer(strID.trim())).intValue();
 									for (int i = id; i >= 0; i--) {
-										networkOut.println("GETMSG "+i);
+										networkOut.println("GETMSG " + i);
 										try {
 											message = networkIn.readLine();
 										} catch (IOException e) {
 											System.err.println("Error reading from socket.");
 										}
-										int index = message.indexOf(':')+1;
+										int index = message.indexOf(':') + 1;
 										String msg = message.substring(index);
-										text = text + "    "+msg+"\n";
+										text = text + "    " + msg + "\n";
 									}
 									msgArea.setText(text);
 									;
 								}
 							});
-						}
-						else{
+						} else {
 							primaryStage.hide();
 							primaryStage.setScene(nextScene);
 							primaryStage.show();
@@ -275,6 +280,9 @@ public class ChatServerClient extends Application {
 		primaryStage.show();
 	}
 
+	/**
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		launch(args);
 		System.exit(0);

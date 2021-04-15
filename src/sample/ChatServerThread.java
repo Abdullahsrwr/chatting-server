@@ -5,20 +5,22 @@ import java.net.*;
 import java.util.*;
 
 public class ChatServerThread extends Thread {
-	protected Socket socket       = null;
-	protected PrintWriter out     = null;
-	protected BufferedReader in   = null;
-	
+	protected Socket socket = null;
+	protected PrintWriter out = null;
+	protected BufferedReader in = null;
+
 	// our server's secret code to connect
-	//Ps we could read this code at the creation of server so becomes a private chat room for those with the code only	
-	// based on the server code, you could also store the history of conversations, which could be restored in a future session
+	// Ps we could read this code at the creation of server so becomes a private
+	// chat room for those with the code only
+	// based on the server code, you could also store the history of conversations,
+	// which could be restored in a future session
 	protected String strPasswords = "password";
-	
-	protected boolean bLoggedIn   = false;
-	protected String strUserID    = null;
-	protected String strPassword  = null;
-	
-	protected Vector messages     = null;
+
+	protected boolean bLoggedIn = false;
+	protected String strUserID = null;
+	protected String strPassword = null;
+
+	protected Vector messages = null;
 
 	public ChatServerThread(Socket socket, Vector messages) {
 		super();
@@ -34,20 +36,20 @@ public class ChatServerThread extends Thread {
 
 	public void run() {
 		// initialize interaction
-		out.println("Connected to Chat Server");	
-		out.println("200 Ready For Chat");	
-		
+		out.println("Connected to Chat Server");
+		out.println("200 Ready For Chat");
+
 		boolean endOfSession = false;
-		while(!endOfSession) {
+		while (!endOfSession) {
 			endOfSession = processCommand();
 		}
 		try {
 			socket.close();
-		} catch(IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	protected boolean processCommand() {
 		String message = null;
 		try {
@@ -63,11 +65,11 @@ public class ChatServerThread extends Thread {
 		String command = st.nextToken();
 		String args = null;
 		if (st.hasMoreTokens()) {
-			args = message.substring(command.length()+1, message.length());
+			args = message.substring(command.length() + 1, message.length());
 		}
 		return processCommand(command, args);
 	}
-	
+
 	protected boolean processCommand(String command, String arguments) {
 		if (command.equalsIgnoreCase("UID")) {
 			// Store the userID, Ask for password
@@ -78,11 +80,11 @@ public class ChatServerThread extends Thread {
 			// Check the password
 			strPassword = arguments;
 			boolean loginCorrect = false;
-			
+
 			if (strPasswords.equalsIgnoreCase(strPassword)) {
 				loginCorrect = true;
 			}
-			
+
 			if (loginCorrect) {
 				out.println("200 Login Successful");
 			} else {
@@ -99,35 +101,35 @@ public class ChatServerThread extends Thread {
 				return false;
 			}
 		}
-		
+
 		// these are the other possible commands
 		if (command.equalsIgnoreCase("LASTMSG")) {
-			out.println("200 LastMessage: "+(messages.size()-1));
+			out.println("200 LastMessage: " + (messages.size() - 1));
 			return false;
 		} else if (command.equalsIgnoreCase("GETMSG")) {
 			int id = (new Integer(arguments)).intValue();
 			if (id < messages.size()) {
-				String msg = (String)messages.elementAt(id);
-				out.println("200 Message #"+id+": "+msg);
+				String msg = (String) messages.elementAt(id);
+				out.println("200 Message #" + id + ": " + msg);
 			} else {
 				out.println("400 Message Does Not Exist");
 			}
 			return false;
 		} else if (command.equalsIgnoreCase("ADDMSG")) {
 			int id = -1;
-			synchronized(this) {
-				messages.addElement("["+strUserID+"]: "+arguments);
-				id = messages.size()-1;
+			synchronized (this) {
+				messages.addElement("[" + strUserID + "]: " + arguments);
+				id = messages.size() - 1;
 			}
-			out.println("200 Message Sent: "+id);
+			out.println("200 Message Sent: " + id);
 			return false;
 		} else if (command.equalsIgnoreCase("LOGOUT")) {
 			out.println("200 Client Logged Out");
 			return true;
 		} else {
-			out.println("400 Unrecognized Command: "+command);
+			out.println("400 Unrecognized Command: " + command);
 			return false;
 		}
 	}
-	
+
 }
