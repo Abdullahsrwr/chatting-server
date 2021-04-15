@@ -32,7 +32,7 @@ Method #2
 4. Compile ChatServer.java, ChatServerClient.java, and ChatServerThread.java
 5. Run ChatServer.
 6. Run as many instances of ChatServerClient as needed.
----------------------
+
 
 
 **Resources**
