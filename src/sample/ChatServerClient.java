@@ -25,7 +25,7 @@ public class ChatServerClient extends Application {
 
 	// we can read this from the user too
 	public static String SERVER_ADDRESS = "localhost";
-	public static int SERVER_PORT = 16789;
+	public static int SERVER_PORT = 8000;
 
 	public ChatServerClient() {
 		try {

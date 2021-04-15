@@ -11,7 +11,7 @@ public class ChatServer {
 	protected int numClients = 0;
 	protected Vector messages = new Vector();
 
-	public static int SERVER_PORT = 16789;
+	public static int SERVER_PORT = 8000;
 	public static int MAX_CLIENTS = 25;
 
 	public ChatServer() {
