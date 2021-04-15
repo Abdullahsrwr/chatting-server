@@ -23,7 +23,6 @@ public class ChatServerClient extends Application {
 	private PrintWriter networkOut = null;
 	private BufferedReader networkIn = null;
 
-	// we can read this from the user too
 	public static String SERVER_ADDRESS = "localhost";
 	public static int SERVER_PORT = 8000;
 
@@ -58,8 +57,8 @@ public class ChatServerClient extends Application {
 		int errorCode = 0;
 
 		try {
-			message = networkIn.readLine(); // Welcome to chat
-			message = networkIn.readLine(); // 200 Message serves is ready
+			message = networkIn.readLine();
+			message = networkIn.readLine(); 
 		} catch (IOException e) {
 			System.err.println("Error reading initial greeting from socket.");
 		}
@@ -84,7 +83,7 @@ public class ChatServerClient extends Application {
 
 		// main App Scene
 
-		btApp1.setOnAction(new EventHandler<ActionEvent>() {
+		btApp1.setOnAction(new EventHandler<ActionEvent>() {//once username is submitted it goes on to set the password asking scene
 			@Override
 			public void handle(ActionEvent actionEvent) {
 				String txtField = text.getText();
@@ -123,7 +122,7 @@ public class ChatServerClient extends Application {
 				primaryStage.setScene(nextScene);
 				primaryStage.show();
 
-				passButton.setOnAction(new EventHandler<ActionEvent>() {
+				passButton.setOnAction(new EventHandler<ActionEvent>() { //once password is submitted it goes on to the messaging part of the client
 					@Override
 					public void handle(ActionEvent actionEvent) {
 						String txtField = passText.getText();
@@ -136,7 +135,7 @@ public class ChatServerClient extends Application {
 						} catch (IOException e) {
 							System.err.println("Error reading response to UID.");
 						}
-						if (txtField.equals("password")) {
+						if (txtField.equals("password")) {//if the password is correct you continue, if not the client shuts down
 							GridPane grid2 = new GridPane();
 							grid2.setAlignment(Pos.CENTER);
 							grid2.setHgap(10);
@@ -164,7 +163,7 @@ public class ChatServerClient extends Application {
 							primaryStage.setScene(nextScene2);
 							primaryStage.show();
 
-							sendButton.setOnAction(new EventHandler<ActionEvent>() {
+							sendButton.setOnAction(new EventHandler<ActionEvent>() {//sends message
 								@Override
 								public void handle(ActionEvent actionEvent) {
 									String msgField = sendText.getText();
@@ -211,7 +210,7 @@ public class ChatServerClient extends Application {
 									;
 								}
 							});
-							refresh.setOnAction(new EventHandler<ActionEvent>() {
+							refresh.setOnAction(new EventHandler<ActionEvent>() {//refreshes messages on the message board
 								@Override
 								public void handle(ActionEvent actionEvent) {
 									String message = null;
@@ -243,9 +242,7 @@ public class ChatServerClient extends Application {
 								}
 							});
 						} else {
-							primaryStage.hide();
-							primaryStage.setScene(nextScene);
-							primaryStage.show();
+							System.exit(0);
 						}
 						;
 					}

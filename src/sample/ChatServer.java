@@ -14,7 +14,7 @@ public class ChatServer {
 	public static int SERVER_PORT = 8000;
 	public static int MAX_CLIENTS = 25;
 
-	public ChatServer() {
+	public ChatServer() {//chat server for the project
 		try {
 			serverSocket = new ServerSocket(SERVER_PORT);
 			System.out.println("---------------------------");

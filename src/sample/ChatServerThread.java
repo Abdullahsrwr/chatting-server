@@ -9,11 +9,6 @@ public class ChatServerThread extends Thread {
 	protected PrintWriter out = null;
 	protected BufferedReader in = null;
 
-	// our server's secret code to connect
-	// Ps we could read this code at the creation of server so becomes a private
-	// chat room for those with the code only
-	// based on the server code, you could also store the history of conversations,
-	// which could be restored in a future session
 	protected String strPasswords = "password";
 
 	protected boolean bLoggedIn = false;
@@ -95,8 +90,6 @@ public class ChatServerThread extends Thread {
 			return false;
 		} else {
 			if (strPassword == null) {
-				// they are not logged in
-				// they cannot issue any other commands
 				out.println("500 Unauthenticated Client:  Please Log In");
 				return false;
 			}
