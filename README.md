@@ -7,7 +7,7 @@ Jeremy Mohammed - 100753165
 
 CSCI 2020U
 
-April 3rd, 2021
+April 14th, 2021
 
 Mariana Shimabukuro
 
@@ -16,7 +16,7 @@ Mariana Shimabukuro
 **Project Information**
 =====================
 
-The purpose of this project was to create a multithreaded chat server and client with a JavaFx UI on the client end. Client Starts with asking for a username, then asks for a password which is set in ChatServerThread.java. Once account is logged into server you can send messages and refresh the message list. Sending a message sends a message and refreshes the message board to the latest messages, and the refresh button updates message board to the latest messages.
+The purpose of this project was to create a multithreaded chat server and client with a JavaFx UI on the client end. Client Starts by asking for a username, then asks for a password that is set in ChatServerThread.java. Once account is logged into server you can send messages and refresh the message list. Sending a message sends a message and refreshes the message board to the latest messages, and the refresh button updates message board to the latest messages.
 
 
 **Instructions**
@@ -24,11 +24,13 @@ The purpose of this project was to create a multithreaded chat server and client
 
 1. Clone The Repository [here](https://github.com/Abdullahsrwr/groupProject_CSCI2020U).
 2. Open the clone folder into a JavaFX applicable IDE.
+
 -----Method #1-------
 3. If using IntelliJ IDE, project is set up with three run configurations: "Server", "Client", and "Client2". Running These configurations in order will run the server and open up two chat clients.
+
 ----Method #2--------
 4. Compile ChatServer.java, ChatServerClient.java, and ChatServerThread.java
-5. Run ChatServer
+5. Run ChatServer.
 6. Run as many instances of ChatServerClient as needed.
 ---------------------
 
