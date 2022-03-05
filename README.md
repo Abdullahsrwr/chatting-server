@@ -1,16 +1,13 @@
 # **Software Systems Group Project**
-Abdullah Sarwar - 100754715
+Abdullah Sarwar
 
-Adyan Reza - 100747849
+Adyan Reza
 
-Jeremy Mohammed - 100753165
+Jeremy Mohammed
 
 CSCI 2020U
 
 April 14th, 2021
-
-Mariana Shimabukuro
-
 ---
 
 **Project Information**
