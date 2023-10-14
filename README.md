@@ -1,13 +1,9 @@
-# **Software Systems Group Project**
+# **Chatting Server/Client**
 Abdullah Sarwar
 
 Adyan Reza
 
 Jeremy Mohammed
-
-CSCI 2020U
-
-April 14th, 2021
 ---
 
 **Project Information**
